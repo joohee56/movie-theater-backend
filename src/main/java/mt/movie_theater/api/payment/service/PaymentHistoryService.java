@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@PropertySource("classpath:application-imp.properties")
+@PropertySource("classpath:application.properties")
 @Transactional
 public class PaymentHistoryService {
 

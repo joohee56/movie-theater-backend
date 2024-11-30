@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-@PropertySource("classpath:application-aws.properties")
+@PropertySource("classpath:application.properties")
 public class S3Uploader {
     private final AmazonS3 amazonS3;
 
