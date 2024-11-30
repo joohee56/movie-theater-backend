@@ -32,7 +32,7 @@ application-test.properties
 application-imp.properties
 application-aws.properties
 data.sql
-!**/src/test/java/mt/movie_theater/api/
+!**/src/test/java/mt/movie_theater/api/*
 
 ### NetBeans ###
 /nbproject/private/
