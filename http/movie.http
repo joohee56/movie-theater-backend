@@ -1,0 +1,8 @@
+### 전체 영화 조회
+GET localhost:8081/api/v1/movies
+
+### 최신 영화 리스트 조회
+GET localhost:8081/api/v1/movies/recent
+
+### 전체 영화 리스트와 각 영화 예매 가능 여부 조회
+GET localhost:8081/api/v1/movies/watchable?date=2024.11.15&theaterId=1

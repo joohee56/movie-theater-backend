@@ -1,0 +1,21 @@
+### 신규 상영시간 등록
+POST localhost:8081/api/v1/screenings/new
+Content-Type: application/json
+
+{
+  "movieId": "1",
+  "hallId": "1",
+  "startTime": "2024-10-31T08:00:00"
+}
+
+### 전체 지역 리스트와 지역별 상영시간 갯수 조회
+GET localhost:8081/api/v1/screenings/region/screeningCount?date=2024.11.15&movieId=1
+
+### 지역별 영화관 리스트와 각 영화관별 상영시간 갯수 조회
+GET localhost:8081/api/v1/screenings/theater/screeningCount?date=2024.11.15&movieId=1&region=SEOUL
+
+### 상영시간 리스트 조회
+GET localhost:8081/api/v1/screenings?date=2024.11.15&theaterId=1&movieId=1
+
+### 상영시간과 최종 결제 금액 조회
+GET localhost:8081/api/v1/screenings/screening/7
