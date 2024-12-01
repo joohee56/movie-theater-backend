@@ -30,7 +30,10 @@ public class MovieService {
     @Transactional
     public MovieResponse createMovie(MovieCreateRequest request) {
         List<Genre> genres = genreRepository.findAllByTypeIn(request.getGenreTypes());
-        String posterUrl = s3Uploader.upload(request.getPosterImage(), "images");
+        String posterUrl = request.getPosterImageUrl();
+        if (request.getPosterImage() != null) {
+            posterUrl = s3Uploader.upload(request.getPosterImage(), "images");
+        }
         Movie movie = Movie.create(request, genres, posterUrl);
         return MovieResponse.create(movieRepository.save(movie));
     }

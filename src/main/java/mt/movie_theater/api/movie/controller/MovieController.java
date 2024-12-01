@@ -1,7 +1,6 @@
 package mt.movie_theater.api.movie.controller;
 
 import jakarta.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mt.movie_theater.api.apiResponse.ApiResponse;
@@ -24,7 +23,7 @@ public class MovieController {
     private final MovieService movieService;
 
     @PostMapping(value = "/new", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ApiResponse<MovieResponse> createMovie(@Valid @ModelAttribute MovieCreateRequest request) throws IOException {
+    public ApiResponse<MovieResponse> createMovie(@Valid @ModelAttribute MovieCreateRequest request) {
         MovieResponse response = movieService.createMovie(request);
         return ApiResponse.ok(response);
     }

@@ -37,8 +37,9 @@ public class MovieCreateRequest {
     @Positive(message = "상영시간은 양수여야합니다.")
     private int durationMinutes;
 
-    @NotNull(message = "포스터 이미지는 필수 입력값입니다.")
     private MultipartFile posterImage;
+
+    private String posterImageUrl;
 
     @NotNull(message = "영화 관람 등급은 필수 입력값입니다.")
     private AgeRating ageRating;
@@ -59,7 +60,7 @@ public class MovieCreateRequest {
     @Builder
     public MovieCreateRequest(String title, String subTitle, String description, LocalDate releaseDate,
                               int durationMinutes,
-                              MultipartFile posterImage, AgeRating ageRating, String director,
+                              MultipartFile posterImage, String posterImageUrl, AgeRating ageRating, String director,
                               ScreeningType screeningType,
                               int standardPrice, List<GenreType> genreTypes, List<String> actors) {
         this.title = title;
@@ -68,6 +69,7 @@ public class MovieCreateRequest {
         this.releaseDate = releaseDate;
         this.durationMinutes = durationMinutes;
         this.posterImage = posterImage;
+        this.posterImageUrl = posterImageUrl;
         this.ageRating = ageRating;
         this.director = director;
         this.screeningType = screeningType;
