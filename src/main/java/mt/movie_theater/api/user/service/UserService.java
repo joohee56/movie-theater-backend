@@ -17,6 +17,10 @@ public class UserService {
 
     @Transactional
     public UserResponse join(UserCreateRequest request) {
+        Optional<User> user = userRepository.findByLoginId(request.getLoginId());
+        if (user.isPresent()) {
+            throw new IllegalArgumentException("이미 사용중인 아이디입니다. 다른 아이디를 사용해 주세요.");
+        }
         User savedUser = userRepository.save(request.toEntity());
         return UserResponse.create(savedUser);
     }
