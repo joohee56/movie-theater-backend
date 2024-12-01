@@ -14,7 +14,7 @@ public class SessionConfig {
             @Override
             public void onStartup(ServletContext servletContext) {
                 SessionCookieConfig sessionCookieConfig = servletContext.getSessionCookieConfig();
-                sessionCookieConfig.setDomain("http://di2iu03lzjtpc.cloudfront.net"); // 설정할 도메인
+                sessionCookieConfig.setDomain("3.39.230.50"); // 설정할 도메인
                 sessionCookieConfig.setPath("/"); // 설정할 경로
             }
         };
