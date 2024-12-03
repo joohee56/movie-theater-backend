@@ -22,16 +22,18 @@ public interface ScreeningRepository extends JpaRepository<Screening, Long> {
 
     @Query("select new mt.movie_theater.domain.screening.dto.RegionScreeningCountDto(s.hall.theater.region, count(s)) from Screening s "
             + "where s.startTime >= :startDateTime and s.startTime < :endDateTime "
+            + "and s.startTime > :currentDateTime "
             + "and (:movieId is null or s.movie.id = :movieId) "
             + "group by s.hall.theater.region")
-    List<RegionScreeningCountDto> countScreeningByRegion(@Param("startDateTime") LocalDateTime startDateTime, @Param("endDateTime") LocalDateTime endDateTime, @Param("movieId") Long movieId);
+    List<RegionScreeningCountDto> countScreeningByRegion(@Param("startDateTime") LocalDateTime startDateTime, @Param("endDateTime") LocalDateTime endDateTime, @Param("currentDateTime") LocalDateTime currentDateTime, @Param("movieId") Long movieId);
 
     @Query("select new mt.movie_theater.domain.screening.dto.TheaterScreeningCountDto(s.hall.theater, count(s)) from Screening s "
             + "where s.hall.theater.region= :region "
             + "and s.startTime >= :startTime and s.startTime < :endTime "
+            + "and s.startTime > :currentDateTime "
             + "and (:movieId is null or s.movie.id= :movieId) "
             + "group by s.hall.theater")
-    List<TheaterScreeningCountDto> findTheaterScreeningCounts(@Param("startTime") LocalDateTime startTime, @Param("endTime") LocalDateTime endTime, @Param("region") Region region, @Param("movieId") Long movieId);
+    List<TheaterScreeningCountDto> findTheaterScreeningCounts(@Param("startTime") LocalDateTime startTime, @Param("endTime") LocalDateTime endTime, @Param("currentDateTime") LocalDateTime currentDateTime,@Param("region") Region region, @Param("movieId") Long movieId);
 
     @Query("select s from Screening s "
             + "where s.startTime >= :startDateTime and s.startTime < :endDateTime "

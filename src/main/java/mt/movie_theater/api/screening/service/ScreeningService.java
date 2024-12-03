@@ -78,11 +78,11 @@ public class ScreeningService {
     /**
      * 전체 지역 리스트 조회, 각 지역별 상영시간 갯수
      */
-    public List<RegionScreeningCountResponse> getRegionsWithScreeningCount(LocalDate date, Long movieId) {
+    public List<RegionScreeningCountResponse> getRegionsWithScreeningCount(LocalDate date, LocalDateTime now, Long movieId) {
         LocalDateTime startDateTime = getStartDateTime(date);
         LocalDateTime endDateTime = getEndDateTime(date);
 
-        List<RegionScreeningCountDto> regionCountDtos = screeningRepository.countScreeningByRegion(startDateTime, endDateTime, movieId);
+        List<RegionScreeningCountDto> regionCountDtos = screeningRepository.countScreeningByRegion(startDateTime, endDateTime, now, movieId);
         Map<Region, Long> regionCountMap = regionCountDtos.stream()
                 .collect(Collectors.toMap(RegionScreeningCountDto::getRegion, RegionScreeningCountDto::getCount));
 
@@ -94,10 +94,10 @@ public class ScreeningService {
     /**
      * 지역별 영화관 리스트 조회, 각 영화관별 상영시간 갯수
      */
-    public List<TheaterScreeningCountResponse> getTheatersWithScreeningCount(LocalDate date, Region region, Long movieId) {
+    public List<TheaterScreeningCountResponse> getTheatersWithScreeningCount(LocalDate date, LocalDateTime now, Region region, Long movieId) {
         LocalDateTime startDateTime = getStartDateTime(date);
         LocalDateTime endDateTime = getEndDateTime(date);
-        Map<Theater, Long> screeningCountMap = createScreeningCountMap(startDateTime, endDateTime, region, movieId);
+        Map<Theater, Long> screeningCountMap = createScreeningCountMap(startDateTime, endDateTime, now, region, movieId);
 
         List<Theater> theaters = theaterRepository.findALlByRegion(region);
         return theaters.stream()
@@ -106,8 +106,8 @@ public class ScreeningService {
                 .collect(Collectors.toList());
     }
 
-    private Map<Theater, Long> createScreeningCountMap(LocalDateTime startDateTime, LocalDateTime endDateTime, Region region, Long movieId) {
-        List<TheaterScreeningCountDto> theaterScreeningCounts = screeningRepository.findTheaterScreeningCounts(startDateTime, endDateTime, region, movieId);
+    private Map<Theater, Long> createScreeningCountMap(LocalDateTime startDateTime, LocalDateTime endDateTime,LocalDateTime now, Region region, Long movieId) {
+        List<TheaterScreeningCountDto> theaterScreeningCounts = screeningRepository.findTheaterScreeningCounts(startDateTime, endDateTime, now, region, movieId);
         return theaterScreeningCounts.stream()
                 .collect(Collectors.toMap(TheaterScreeningCountDto::getTheater, TheaterScreeningCountDto::getCount));
     }

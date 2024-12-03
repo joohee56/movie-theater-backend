@@ -37,13 +37,15 @@ public class ScreeningController {
 
     @GetMapping("/region/screeningCount")
     public ApiResponse<List<RegionScreeningCountResponse>> getRegionsWithScreeningCount(@Valid @ModelAttribute RegionScreeningCountRequest request) {
-        List<RegionScreeningCountResponse> regionResponses = screeningService.getRegionsWithScreeningCount(request.getDate(), request.getMovieId());
+        LocalDateTime now = LocalDateTime.now();
+        List<RegionScreeningCountResponse> regionResponses = screeningService.getRegionsWithScreeningCount(request.getDate(), now, request.getMovieId());
         return ApiResponse.ok(regionResponses);
     }
 
     @GetMapping("/theater/screeningCount")
     public ApiResponse<List<TheaterScreeningCountResponse>> getTheatersWithScreeningCount(@Valid @ModelAttribute TheaterScreeningCountRequest request) {
-        List<TheaterScreeningCountResponse> responses = screeningService.getTheatersWithScreeningCount(request.getDate(), request.getRegion(), request.getMovieId());
+        LocalDateTime now = LocalDateTime.now();
+        List<TheaterScreeningCountResponse> responses = screeningService.getTheatersWithScreeningCount(request.getDate(), now, request.getRegion(), request.getMovieId());
         return ApiResponse.ok(responses);
     }
 
