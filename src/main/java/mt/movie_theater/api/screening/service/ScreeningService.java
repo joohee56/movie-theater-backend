@@ -115,10 +115,10 @@ public class ScreeningService {
     /**
      * 상영시간 리스트 조회
      */
-    public List<FullScreeningResponse> getScreenings(LocalDate date, Long movieId, Long theaterId) {
+    public List<FullScreeningResponse> getScreenings(LocalDate date, LocalDateTime now, Long movieId, Long theaterId) {
         LocalDateTime startDateTime = getStartDateTime(date);
         LocalDateTime endDateTime = getEndDateTime(date);
-        List<Screening> screenings = screeningRepository.findAllByDateAndTheaterIdAndOptionalMovieId(startDateTime, endDateTime, movieId, theaterId);
+        List<Screening> screenings = screeningRepository.findAllByDateAndTheaterIdAndOptionalMovieId(startDateTime, endDateTime, now, movieId, theaterId);
         return screenings.stream()
                 .map(FullScreeningResponse::create)
                 .collect(Collectors.toList());

@@ -1,6 +1,7 @@
 package mt.movie_theater.api.screening.controller;
 
 import jakarta.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mt.movie_theater.api.apiResponse.ApiResponse;
@@ -48,7 +49,8 @@ public class ScreeningController {
 
     @GetMapping("")
     public ApiResponse<List<FullScreeningResponse>> getScreenings(@Valid @ModelAttribute ScreeningsRequest request) {
-        List<FullScreeningResponse> screenings = screeningService.getScreenings(request.getDate(), request.getMovieId(), request.getTheaterId());
+        LocalDateTime now = LocalDateTime.now();
+        List<FullScreeningResponse> screenings = screeningService.getScreenings(request.getDate(), now, request.getMovieId(), request.getTheaterId());
         return ApiResponse.ok(screenings);
     }
 
