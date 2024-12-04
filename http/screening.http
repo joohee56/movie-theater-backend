@@ -5,7 +5,7 @@ Content-Type: application/json
 {
   "movieId": "1",
   "hallId": "1",
-  "startTime": "2024-10-31T08:00:00"
+  "startTimes": ["2024-10-31T08:00:00", "2024-10-31T10:00:00"]
 }
 
 ### 전체 지역 리스트와 지역별 상영시간 갯수 조회

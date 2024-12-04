@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -40,19 +41,24 @@ public class ScreeningService {
     private final TheaterRepository theaterRepository;
 
     @Transactional
-    public ScreeningResponse createScreening(ScreeningCreateRequest request) {
+    public List<Long> createScreenings(ScreeningCreateRequest request) {
         Movie movie = validateMovie(request.getMovieId());
         Hall hall = validateHall(request.getHallId());
-        LocalDateTime endTime = calculateEndTime(request.getStartTime(), movie.getDurationMinutes());
-        int ticketTotalPrice = TicketPriceCalculator.calculateFinalPrice(movie.getStandardPrice(), hall.getHallTypeModifier(), request.getStartTime());
-        Screening screening = Screening.builder()
-                                .movie(movie)
-                                .hall(hall)
-                                .startTime(request.getStartTime())
-                                .endTime(endTime)
-                                .totalPrice(ticketTotalPrice)
-                                .build();
-        return ScreeningResponse.create(screeningRepository.save(screening));
+        List<Long> screeningIds = new ArrayList<>();
+        for (LocalDateTime startTime : request.getStartTimes()) {
+            LocalDateTime endTime = calculateEndTime(startTime, movie.getDurationMinutes());
+            int ticketTotalPrice = TicketPriceCalculator.calculateFinalPrice(movie.getStandardPrice(), hall.getHallTypeModifier(), startTime);
+            Screening screening = Screening.builder()
+                    .movie(movie)
+                    .hall(hall)
+                    .startTime(startTime)
+                    .endTime(endTime)
+                    .totalPrice(ticketTotalPrice)
+                    .build();
+            ScreeningResponse.create(screeningRepository.save(screening));
+            screeningIds.add(screening.getId());
+        }
+        return screeningIds;
     }
 
     private Movie validateMovie(Long movieId) {

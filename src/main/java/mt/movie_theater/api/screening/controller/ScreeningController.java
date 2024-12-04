@@ -10,7 +10,6 @@ import mt.movie_theater.api.screening.request.ScreeningCreateRequest;
 import mt.movie_theater.api.screening.request.ScreeningsRequest;
 import mt.movie_theater.api.screening.request.TheaterScreeningCountRequest;
 import mt.movie_theater.api.screening.response.FullScreeningResponse;
-import mt.movie_theater.api.screening.response.ScreeningResponse;
 import mt.movie_theater.api.screening.response.ScreeningWithPriceResponse;
 import mt.movie_theater.api.screening.response.TheaterScreeningCountResponse;
 import mt.movie_theater.api.screening.service.ScreeningService;
@@ -30,9 +29,8 @@ public class ScreeningController {
     private final ScreeningService screeningService;
 
     @PostMapping("/new")
-    public ApiResponse<ScreeningResponse> createScreening(@Valid @RequestBody ScreeningCreateRequest request) {
-        ScreeningResponse response = screeningService.createScreening(request);
-        return ApiResponse.ok(response);
+    public ApiResponse<List<Long>> createScreenings(@Valid @RequestBody ScreeningCreateRequest request) {
+        return ApiResponse.ok(screeningService.createScreenings(request));
     }
 
     @GetMapping("/region/screeningCount")
