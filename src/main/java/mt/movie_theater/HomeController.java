@@ -10,6 +10,6 @@ public class HomeController {
 
     @GetMapping("/home")
     public String home() {
-        return "Welcome to Movie Theater1";
+        return "Welcome to Movie Theater2";
     }
 }
