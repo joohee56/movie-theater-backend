@@ -1,0 +1,26 @@
+### 신규 상영관 등록
+POST localhost:8081/api/v1/halls/new
+Content-Type: application/json
+
+{
+  "theaterId": "1",
+  "name": "1관",
+  "screeningType": "IMAX",
+  "hallTypeModifier": "3000"
+}
+
+### 신규 상영관과 좌석 리스트 등록
+POST localhost:8081/api/v1/halls/new/seats
+Content-Type: application/json
+
+{
+  "theaterId": "1",
+  "name": "1관",
+  "screeningType": "IMAX",
+  "hallTypeModifier": "3000",
+  "rows": "3",
+  "columns": "2"
+}
+
+### 영화관에 해당하는 상영관 리스트 조회
+GET localhost:8081/api/v1/halls/theater/1
