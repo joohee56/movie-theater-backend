@@ -5,6 +5,8 @@ on:
     branches:
       - main
 
+permissions: write-all
+
 jobs:
   Deploy:
     runs-on: ubuntu-latest
@@ -18,7 +20,11 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           envs: APPLICATION_PROPERTIES
-          script_stop: true
+          character set server: 'utf8'
+          mysql database: 'movietheater'
+          mysql user: 'joohee56'
+          mysql password: 'movietheater960912@@'
+#          script_stop: true
           script: |
             cd /home/ubuntu/movie-theater-backend
             rm -rf src/main/resources/application.properties
