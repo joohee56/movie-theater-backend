@@ -52,9 +52,11 @@ jacocoTestReport {
                                 '**/*Dto*',
                                 '**/*Resolver*',
                                 '**/*Interceptor*',
+                                '**/*HomeController*',
                                 '**/config/**',
                                 '**/exception/**',
-                                '**/constants/**'
+                                '**/constants/**',
+                                '**/util/**'
                     ])
         }))
     }

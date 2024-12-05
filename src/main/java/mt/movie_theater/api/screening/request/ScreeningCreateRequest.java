@@ -26,4 +26,5 @@ public class ScreeningCreateRequest {
         this.hallId = hallId;
         this.startTimes = startTimes;
     }
+
 }

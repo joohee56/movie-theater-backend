@@ -33,7 +33,7 @@ application-imp.properties
 application-aws.properties
 application-ec2.properties
 data.sql
-test/
+#test/
 
 ### NetBeans ###
 /nbproject/private/
